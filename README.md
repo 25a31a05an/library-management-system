@@ -5,6 +5,10 @@ A Java-based Library Management System that simplifies library operations. It al
 
 [https://monumental-peony-7b09c4.netlify.app]
 
+# Flow chart
+
+![Library Management System Flowchart](library-flowchart.png)
+
 # Code
 
 import java.util.*;
