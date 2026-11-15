@@ -1,0 +1,211 @@
+/**
+ * Library Management System - Responsive Stylesheet
+ * Handles mobile, tablet, and high-DPI responsive layouts.
+ */
+
+/* Medium Devices & Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 240px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .global-search-container {
+        width: 280px;
+    }
+
+    .content-body {
+        padding: 1.5rem;
+    }
+
+    .login-card-container {
+        max-width: 860px;
+    }
+
+    .login-showcase-panel,
+    .login-form-panel {
+        padding: 2.5rem 2rem;
+    }
+}
+
+/* Small Tablets and Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Sidebar becomes off-canvas drawer */
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    .btn-sidebar-toggle {
+        display: inline-flex;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .top-header {
+        padding: 0 1rem;
+    }
+
+    .breadcrumb-area h3 {
+        font-size: 1.05rem;
+    }
+
+    /* Hide global search bar on header on very narrow screens, or condense */
+    .global-search-container {
+        display: none; /* Can be opened via dedicated button or kept in desktop */
+    }
+
+    .admin-meta {
+        display: none;
+    }
+
+    .admin-profile-pill {
+        padding: 0.25rem;
+        background: transparent;
+        border: none;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .quick-actions-bar {
+        flex-direction: column;
+    }
+
+    .btn-quick-action {
+        width: 100%;
+    }
+
+    .filter-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-box-filter {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .custom-select {
+        width: 100%;
+    }
+
+    .view-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .view-header .btn {
+        width: 100%;
+    }
+
+    .content-body {
+        padding: 1rem;
+    }
+
+    /* Modals Responsive */
+    .custom-modal {
+        padding: 0.75rem;
+    }
+
+    .modal-dialog {
+        max-width: 100%;
+        max-height: 95vh;
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding: 1rem;
+    }
+
+    /* Login Page Responsive Single Column */
+    .login-card-container {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 1rem auto;
+    }
+
+    .login-showcase-panel {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+
+    .showcase-brand {
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .showcase-hero p, .features-list {
+        display: none;
+    }
+
+    .showcase-footer {
+        display: none;
+    }
+
+    .login-form-panel {
+        padding: 2rem 1.5rem;
+    }
+
+    .demo-credentials-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .btn-autofill-demo {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Toast notifications on mobile */
+    .toast-container {
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+
+    .custom-toast {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Extra Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .stat-card-value {
+        font-size: 1.8rem;
+    }
+
+    .modern-table thead th,
+    .modern-table tbody td {
+        padding: 0.65rem 0.5rem;
+        font-size: 0.82rem;
+    }
+
+    .btn-action {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+}

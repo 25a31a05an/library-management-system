@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library Management System | B.Tech CSE Project</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        /* Landing Page Specific Styling */
+        .landing-navbar {
+            height: 76px;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .landing-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .landing-nav-links a {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .landing-nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero-section {
+            padding: 5rem 5% 4rem;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.05) 0%, rgba(248, 250, 252, 0) 100%);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+            max-width: 860px;
+            margin: 0 auto 1.25rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-stat-item {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Catalog Search Section */
+        .catalog-section {
+            padding: 4rem 5%;
+            background-color: var(--bg-body);
+        }
+
+        .section-header-center {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header-center h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header-center p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .catalog-search-bar {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .catalog-search-bar input {
+            width: 100%;
+            padding: 1rem 1.25rem 1rem 3.25rem;
+            font-size: 1rem;
+            border-radius: 9999px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .catalog-search-bar input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        .catalog-search-bar i {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .book-card-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-card-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .book-card-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Rules section */
+        .rules-section {
+            padding: 4rem 5%;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .rule-card {
+            padding: 1.75rem;
+            border-radius: var(--radius-lg);
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .rule-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        /* Footer */
+        .landing-footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 3.5rem 5% 2rem;
+            text-align: center;
+        }
+
+        .footer-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .landing-nav-links {
+                display: none;
+            }
+            .hero-stats-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="landing-navbar">
+        <div class="d-flex align-items-center gap-3">
+            <div class="brand-icon">
+                <i class="fa-solid fa-book-bookmark"></i>
+            </div>
+            <div class="brand-text">
+                <h4 class="text-dark mb-0">Central Digital Library</h4>
+                <span class="text-muted">Dept of Computer Science & Engineering</span>
+            </div>
+        </div>
+
+        <ul class="landing-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#catalog">Search Catalog</a></li>
+            <li><a href="#rules">Rules & Policies</a></li>
+            <li><a href="#project-info">Project Overview</a></li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2">
+            <a href="login.html" class="btn btn-primary px-4 shadow-sm" id="nav-login-btn">
+                <i class="fa-solid fa-lock me-1"></i> Admin Portal
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-badge">
+            <i class="fa-solid fa-graduation-cap"></i> B.Tech CSE Mini Project | Academic Demonstration
+        </div>
+        <h1 class="hero-title">
+            Smart & Efficient <span>Library Management</span> System
+        </h1>
+        <p class="hero-subtitle">
+            An automated, responsive digital repository for managing books, student records, 
+            instant issue & return workflows, and late fee calculations.
+        </p>
+
+        <div class="hero-cta-group">
+            <a href="#catalog" class="btn btn-primary btn-lg px-4 py-3">
+                <i class="fa-solid fa-magnifying-glass me-2"></i> Browse Book Catalog
+            </a>
+            <a href="login.html" class="btn btn-secondary btn-lg px-4 py-3">
+                <i class="fa-solid fa-gauge-high me-2"></i> Launch Admin Dashboard
+            </a>
+        </div>
+
+        <!-- Real-time Live Counters -->
+        <div class="hero-stats-row">
+            <div class="hero-stat-item">
+                <span class="hero-stat-number" id="public-stat-total-books">12</span>
+                <span class="hero-stat-label">Unique Titles</span>
+            </div>
+            <div class="hero-stat-item">
+                <span class="hero-stat-number" id="public-stat-available-copies">65</span>
+                <span class="hero-stat-label">Available Copies</span>
+            </div>
+            <div class="hero-stat-item">
+                <span class="hero-stat-number" id="public-stat-students">8</span>
+                <span class="hero-stat-label">Registered Students</span>
+            </div>
+            <div class="hero-stat-item">
+                <span class="hero-stat-number" style="color: #f59e0b;">₹5/day</span>
+                <span class="hero-stat-label">Late Return Fine</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Public Book Catalog Browser -->
+    <section class="catalog-section" id="catalog">
+        <div class="section-header-center">
+            <h3>Explore Department Library Catalog</h3>
+            <p>Real-time textbook availability and shelf status for engineering students.</p>
+        </div>
+
+        <div class="catalog-search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="public-search-input" placeholder="Search by book title, author, or ISBN...">
+        </div>
+
+        <!-- Filter category tags -->
+        <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap" id="public-category-pills">
+            <button class="btn btn-sm btn-primary category-pill active" data-cat="all">All Disciplines</button>
+            <button class="btn btn-sm btn-secondary category-pill" data-cat="Computer Science">Computer Science</button>
+            <button class="btn btn-sm btn-secondary category-pill" data-cat="Database Systems">Database Systems</button>
+            <button class="btn btn-sm btn-secondary category-pill" data-cat="Operating Systems">Operating Systems</button>
+            <button class="btn btn-sm btn-secondary category-pill" data-cat="Artificial Intelligence">AI & Machine Learning</button>
+            <button class="btn btn-sm btn-secondary category-pill" data-cat="Programming">Programming</button>
+        </div>
+
+        <!-- Book Cards Grid -->
+        <div class="catalog-grid" id="public-books-grid">
+            <!-- Populated via JavaScript from LocalStorage -->
+        </div>
+    </section>
+
+    <!-- Library Rules and Borrowing Guidelines -->
+    <section class="rules-section" id="rules">
+        <div class="section-header-center">
+            <h3>Library Guidelines & Borrowing Policy</h3>
+            <p>Rules governing book circulation and resource handling.</p>
+        </div>
+
+        <div class="rules-grid">
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                <h5 class="fw-bold mb-2">14-Day Loan Period</h5>
+                <p class="text-muted small">Standard borrowing limit of 14 calendar days from the date of issuance.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h5 class="fw-bold mb-2">3 Books Per Student</h5>
+                <p class="text-muted small">A maximum of three books can be borrowed simultaneously per registered student roll number.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                <h5 class="fw-bold mb-2">₹5 Daily Overdue Fine</h5>
+                <p class="text-muted small">Automatic late fine calculation of ₹5 per day after the scheduled due date.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fa-solid fa-id-card"></i></div>
+                <h5 class="fw-bold mb-2">Valid College ID</h5>
+                <p class="text-muted small">Physical or digital student ID card verification required during counter issue/return.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview Details -->
+    <section class="catalog-section" id="project-info" style="background-color: var(--bg-card);">
+        <div class="section-header-center">
+            <h3>B.Tech CSE Project Specification</h3>
+            <p>Technical architecture and components implemented for this project.</p>
+        </div>
+
+        <div class="row g-4" style="max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 260px; padding: 1rem;">
+                <div class="p-4 border rounded-3 bg-light">
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-code me-2"></i> Technologies Used</h5>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-muted">
+                        <li><strong>Frontend:</strong> HTML5 Semantic Markup & CSS3 Variables</li>
+                        <li><strong>Scripting:</strong> Vanilla JavaScript (ES6+ Modules)</li>
+                        <li><strong>Persistence:</strong> HTML5 Web Storage (LocalStorage)</li>
+                        <li><strong>Icons & Typography:</strong> Font Awesome 6 & Google Plus Jakarta Sans</li>
+                        <li><strong>Responsive:</strong> Custom Flexbox & CSS Grid breakpoints</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 260px; padding: 1rem;">
+                <div class="p-4 border rounded-3 bg-light">
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-list-check me-2"></i> Key Project Highlights</h5>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-muted">
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Full CRUD on Books and Students</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Automated ₹5/day overdue fine calculations</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Real-time inventory decrement/increment</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Dark Mode, CSV Export & Printable Reports</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Seeded with realistic B.Tech CSE textbooks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-brand">
+            <i class="fa-solid fa-book-bookmark text-primary"></i>
+            <span>Library Management System</span>
+        </div>
+        <p class="small text-muted mb-3">
+            Designed & Developed for B.Tech CSE Java & Web Development Mini Project Demonstration.
+        </p>
+        <div class="small text-muted">
+            Admin Credentials: <code>admin</code> / <code>admin123</code> &bull; Demo Mode Enabled
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update public stats
+            const stats = LMSStorage.getDashboardStats();
+            const totalBooksEl = document.getElementById('public-stat-total-books');
+            const availCopiesEl = document.getElementById('public-stat-available-copies');
+            const studentsEl = document.getElementById('public-stat-students');
+
+            if (totalBooksEl) totalBooksEl.textContent = stats.uniqueTitles;
+            if (availCopiesEl) availCopiesEl.textContent = stats.availableBooks;
+            if (studentsEl) studentsEl.textContent = stats.totalStudents;
+
+            // Render public book catalog
+            let currentCategory = 'all';
+            let currentSearch = '';
+
+            function renderCatalog() {
+                const books = LMSStorage.getBooks();
+                const container = document.getElementById('public-books-grid');
+                if (!container) return;
+
+                const filtered = books.filter(b => {
+                    const matchCat = currentCategory === 'all' || (b.category && b.category.toLowerCase() === currentCategory.toLowerCase());
+                    const matchSearch = !currentSearch || 
+                        b.title.toLowerCase().includes(currentSearch) ||
+                        b.author.toLowerCase().includes(currentSearch) ||
+                        b.isbn.toLowerCase().includes(currentSearch);
+                    return matchCat && matchSearch;
+                });
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1 / -1;" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-book-open fs-1 d-block mb-2 opacity-50"></i>
+                            <h5>No books matching your query.</h5>
+                            <p class="small">Try searching another title or clearing the category filter.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = filtered.map(b => {
+                    const avail = parseInt(b.availableCopies, 10);
+                    const isAvail = avail > 0;
+
+                    return `
+                        <div class="book-card-item">
+                            <div>
+                                <div class="book-card-top">
+                                    <div class="book-card-icon">
+                                        <i class="fa-solid fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <span class="tag-category mb-1">${b.category || 'General'}</span>
+                                        <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.05rem; line-height: 1.3;">${b.title}</h5>
+                                        <small class="text-muted d-block"><i class="fa-solid fa-pen-nib"></i> ${b.author}</small>
+                                    </div>
+                                </div>
+                                <div class="small text-muted mb-3 font-monospace">
+                                    <i class="fa-solid fa-barcode"></i> ISBN: ${b.isbn}
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                                <div>
+                                    <small class="text-muted d-block">Shelf Availability</small>
+                                    <span class="fw-bold ${isAvail ? 'text-success' : 'text-danger'}">
+                                        ${avail} of ${b.quantity} copies
+                                    </span>
+                                </div>
+                                <span class="status-badge ${isAvail ? 'badge-success' : 'badge-danger'}">
+                                    ${isAvail ? 'Available' : 'Out of Stock'}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Bind Search & Filters
+            const searchInput = document.getElementById('public-search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    currentSearch = e.target.value.trim().toLowerCase();
+                    renderCatalog();
+                });
+            }
+
+            const categoryPills = document.querySelectorAll('.category-pill');
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    categoryPills.forEach(p => {
+                        p.classList.remove('btn-primary', 'active');
+                        p.classList.add('btn-secondary');
+                    });
+                    pill.classList.remove('btn-secondary');
+                    pill.classList.add('btn-primary', 'active');
+                    currentCategory = pill.getAttribute('data-cat');
+                    renderCatalog();
+                });
+            });
+
+            // If user is already logged in, update top button
+            if (LMSAuth.isAuthenticated()) {
+                const loginBtn = document.getElementById('nav-login-btn');
+                if (loginBtn) {
+                    loginBtn.href = 'dashboard.html';
+                    loginBtn.innerHTML = '<i class="fa-solid fa-gauge-high me-1"></i> Go to Dashboard';
+                }
+            }
+
+            renderCatalog();
+        });
+    </script>
+</body>
+</html>
